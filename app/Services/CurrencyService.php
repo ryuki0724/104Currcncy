@@ -57,16 +57,13 @@ class CurrencyService
         foreach ($currencyData as $currency) {
             if ($currency['base_currency'] === $from) {
                 return [
-                    'rate' => $currency['rates'][$to],
+                    'rate'             => $currency['rates'][$to],
                     'converted_amount' => $this->formatAmountByCurrency($currency['rates'][$to] * $amount, $to),
                 ];
             }
         }
 
-        return [
-            'rate' => 0,
-            'converted_amount' => 0,
-        ];
+        throw new \Exception("找不到貨幣的匯率資料");
     }
 
     /**
